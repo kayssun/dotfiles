@@ -24,8 +24,19 @@ function fish_prompt
   set -l last_status $status
   set -l git_status (_git_branch_name)
 
-  set_color green
-  echo -n "$host_icon " (_short_pwd)
+  set prompt_dircolor (set_color 050)
+
+  set_color normal
+  switch $USER
+  case root
+    set prompt_finisher_color (set_color red)
+    set prompt_finisher ' #'
+  case '*'
+    set prompt_finisher_color (set_color green)
+    set prompt_finisher ' >'
+  end
+  
+  echo -n "$host_icon $prompt_dircolor" (_short_pwd)
   
   if test $git_status != ""
     echo -n " ($git_status)"
@@ -36,8 +47,7 @@ function fish_prompt
     echo -n " [$last_status]"
   end
   
-  set_color normal
-  echo ' > '
+  echo -n "$prompt_finisher_color$prompt_finisher "
 end
 
 function fish_greeting
