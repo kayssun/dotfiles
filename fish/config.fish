@@ -39,3 +39,8 @@ function fish_prompt
   set_color normal
   echo ' > '
 end
+
+function fish_greeting
+  echo "$USER on "(hostname|cut -d . -f 1)
+  date
+end
