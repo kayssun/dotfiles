@@ -1,1 +1,1 @@
-set PATH ~/.bin $PATH
+set PATH ~/.bin /usr/local/sbin $PATH
