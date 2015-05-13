@@ -8,8 +8,9 @@ alias ks-release "git checkout release; and git merge master; and git push; and 
 # update preview branch
 alias ks-preview "git checkout preview; and git merge master; and git push; and git checkout master"
 
-# My MacBook Luna
-set host_icon '🌒'
+if test -f local.fish
+  . local.fish
+end
 
 function _git_branch_name
   echo (command git symbolic-ref HEAD ^/dev/null | sed -e 's|^refs/heads/||')
