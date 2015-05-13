@@ -8,8 +8,8 @@ alias ks-release "git checkout release; and git merge master; and git push; and 
 # update preview branch
 alias ks-preview "git checkout preview; and git merge master; and git push; and git checkout master"
 
-if test -f local.fish
-  . local.fish
+if test -f ~/.config/fish/local.fish
+  . ~/.config/fish/local.fish
 end
 
 function _git_branch_name
