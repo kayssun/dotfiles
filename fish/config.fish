@@ -8,8 +8,30 @@ alias ks-release "git checkout release; and git merge master; and git push; and 
 # update preview branch
 alias ks-preview "git checkout preview; and git merge master; and git push; and git checkout master"
 
+# Default setting: show username and host in prompt
+set -gx prompt_show_host 1
+
 if test -f ~/.config/fish/local.fish
   . ~/.config/fish/local.fish
+end
+
+function _is_staging_server
+  /sbin/ifconfig | grep "2a01:4f8:191:13b4:"
+end
+
+if test $prompt_host_color
+else
+  set -gx prompt_host_color (set_color red)
+
+  # use blue on the local macs
+  if test (uname) = "Darwin"
+    set -gx prompt_host_color (set_color blue)
+  end
+  
+  # use orange on the staging machines
+  if _is_staging_server
+    set -gx prompt_host_color (set_color D71)
+  end
 end
 
 function _git_branch_name
@@ -32,13 +54,21 @@ function fish_prompt
   case root
     set prompt_finisher_color (set_color red)
     set prompt_finisher ' #'
+    set prompt_user ''
   case '*'
     set prompt_finisher_color (set_color green)
     set prompt_finisher ' >'
+    set prompt_user "$USER@"
   end
   
-  echo -n "$host_icon $prompt_dircolor" (_short_pwd)
-  
+  echo -n "$host_icon "
+
+  if test $prompt_show_host
+    echo -n " $prompt_host_color$prompt_user"(hostname -s)
+  end
+
+  echo -n "$prompt_dircolor" (_short_pwd)
+
   if test $git_status != ""
     echo -n " ($git_status)"
   end
