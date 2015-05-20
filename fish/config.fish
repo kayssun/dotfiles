@@ -27,7 +27,7 @@ else
   if test (uname) = "Darwin"
     set -gx prompt_host_color (set_color blue)
   end
-  
+
   # use orange on the staging machines
   if _is_staging_server
     set -gx prompt_host_color (set_color D71)
@@ -61,13 +61,14 @@ function fish_prompt
     set prompt_user "$USER@"
   end
   
-  echo -n "$host_icon "
+  # Add one space. You might want to add another one to $host_icon, because emoji are pretty wide
+  if test $host_icon; echo -n "$host_icon "; end;
 
   if test $prompt_show_host
-    echo -n " $prompt_host_color$prompt_user"(hostname -s)
+    echo -n "$prompt_host_color$prompt_user"(hostname -s)" "
   end
 
-  echo -n "$prompt_dircolor" (_short_pwd)
+  echo -n "$prompt_dircolor"(_short_pwd)
 
   if test $git_status != ""
     echo -n " ($git_status)"
