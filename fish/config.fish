@@ -16,7 +16,7 @@ if test -f ~/.config/fish/local.fish
 end
 
 function _is_staging_server
-  /sbin/ifconfig | grep "2a01:4f8:191:13b4:"
+  /sbin/ifconfig | grep "2a01:4f8:191:13b4:" > /dev/null
 end
 
 if test $prompt_host_color
