@@ -1,5 +1,10 @@
 set PATH ~/.bin /usr/local/sbin $PATH
 
+function fish_greeting
+  echo "$USER on "(hostname|cut -d . -f 1)
+  date
+end
+
 # Git shortcuts
 # update local repo even with local changes
 alias ks-update "git stash; and git pull --rebase; and git push; and git stash apply"
@@ -82,7 +87,3 @@ function fish_prompt
   echo -n "$prompt_finisher_color$prompt_finisher "
 end
 
-function fish_greeting
-  echo "$USER on "(hostname|cut -d . -f 1)
-  date
-end
