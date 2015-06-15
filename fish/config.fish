@@ -1,5 +1,10 @@
 set PATH ~/.bin /usr/local/sbin $PATH
 
+function fish_greeting
+  echo "$USER on "(hostname|cut -d . -f 1)
+  date
+end
+
 # Git shortcuts
 # update local repo even with local changes
 alias ks-update "git stash; and git pull --rebase; and git push; and git stash apply"
@@ -19,19 +24,23 @@ function _is_staging_server
   /sbin/ifconfig | grep "2a01:4f8:191:13b4:" > /dev/null
 end
 
-if test $prompt_host_color
-else
-  set -gx prompt_host_color (set_color red)
+function _set_promt_host_color
+  if test $host_color
+  else
+    set -g host_color "red"
 
-  # use blue on the local macs
-  if test (uname) = "Darwin"
-    set -gx prompt_host_color (set_color blue)
+    # use blue on the local macs
+    if test (uname) = "Darwin"
+      set -g host_color "blue"
+    end
+
+    # use orange on the staging machines
+    if _is_staging_server
+      set -g host_color "D71"
+    end
   end
 
-  # use orange on the staging machines
-  if _is_staging_server
-    set -gx prompt_host_color (set_color D71)
-  end
+  set -g prompt_host_color (set_color $host_color)
 end
 
 function _git_branch_name
@@ -40,6 +49,11 @@ end
 
 function _short_pwd
   echo $PWD | sed -e "s|^$HOME|~|"
+end
+
+if status -i
+  # we're interactive
+  _set_promt_host_color
 end
 
 # Prompt with: Icon, path, git branch, return status
@@ -82,7 +96,3 @@ function fish_prompt
   echo -n "$prompt_finisher_color$prompt_finisher "
 end
 
-function fish_greeting
-  echo "$USER on "(hostname|cut -d . -f 1)
-  date
-end
