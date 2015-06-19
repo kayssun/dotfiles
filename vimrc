@@ -19,9 +19,8 @@ set lazyredraw
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
 
-" Be smart when using tabs ;)
-set smarttab
-
 " 1 tab == 4 spaces
-set shiftwidth=4
+filetype plugin indent on
 set tabstop=4
+set shiftwidth=4
+set expandtab
