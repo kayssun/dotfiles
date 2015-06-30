@@ -5,6 +5,9 @@ function fish_greeting
   date
 end
 
+# Prefer vim
+set -x EDITOR "vim"
+
 # Git shortcuts
 # update local repo even with local changes
 alias ks-update "git stash; and git pull --rebase; and git push; and git stash apply"
