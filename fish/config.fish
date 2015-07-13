@@ -1,5 +1,8 @@
 set PATH ~/.bin /usr/local/sbin $PATH
 
+# Ensure the variable is set when fish starts
+set CMD_DURATION 1
+
 function fish_greeting
   echo "$USER on "(hostname|cut -d . -f 1)
   date
@@ -63,10 +66,17 @@ end
 function fish_prompt
   set -l last_status $status
   set -l git_status (_git_branch_name)
-
   set prompt_dircolor (set_color 050)
 
   set_color normal
+
+  if math "$CMD_DURATION>10000" > /dev/null
+    set_color blue
+    echo ""
+    echo "Last command took" (math "$CMD_DURATION/1000") "seconds."
+    set_color normal    
+  end
+
   switch $USER
   case root
     set prompt_finisher_color (set_color red)
