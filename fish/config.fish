@@ -2,6 +2,7 @@ set PATH ~/.bin /usr/local/sbin $PATH
 
 # Ensure the variable is set when fish starts
 set CMD_DURATION 1
+set REPORTTIME 10000
 
 function fish_greeting
   echo "$USER on "(hostname|cut -d . -f 1)
@@ -70,7 +71,7 @@ function fish_prompt
 
   set_color normal
 
-  if math "$CMD_DURATION>10000" > /dev/null
+  if begin; math "$REPORTTIME!=0" > /dev/null; and math "$CMD_DURATION>$REPORTTIME" > /dev/null; end
     set_color blue
     echo ""
     echo "Last command took" (math "$CMD_DURATION/1000") "seconds."
