@@ -2,7 +2,7 @@ set PATH ~/.bin /usr/local/sbin $PATH
 
 # Ensure the variable is set when fish starts
 set CMD_DURATION 1
-set REPORTTIME 10000
+set REPORTTIME 0
 
 function fish_greeting
   echo "$USER on "(hostname|cut -d . -f 1)
