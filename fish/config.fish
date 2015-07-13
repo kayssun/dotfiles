@@ -4,6 +4,13 @@ set PATH ~/.bin /usr/local/sbin $PATH
 set CMD_DURATION 1
 set REPORTTIME 0
 
+# Set REPORTTIME to 10s on fish versions greater than 2.2.0
+set version_major (echo $version | cut -d "." -f 1)
+set version_minor (echo $version | cut -d "." -f 1)
+if [ $version_major -ge 2 -a $version_minor -ge 2 ]
+  set REPORTTIME 10000
+end
+
 function fish_greeting
   echo "$USER on "(hostname|cut -d . -f 1)
   date
@@ -71,7 +78,7 @@ function fish_prompt
 
   set_color normal
 
-  if begin; math "$REPORTTIME!=0" > /dev/null; and math "$CMD_DURATION>$REPORTTIME" > /dev/null; end
+  if [ "$REPORTTIME" != "0" -a "$CMD_DURATION" -gt "$REPORTTIME" ]
     set_color blue
     echo ""
     echo "Last command took" (math "$CMD_DURATION/1000") "seconds."
