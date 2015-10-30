@@ -53,7 +53,7 @@ fi
 if [[ -h $FILE ]]; then
 	rm $FILE
 fi
-ln -s .dotfiles/fish/config.fish .config/fish/config.fish
+ln -s $HOME/.dotfiles/fish/config.fish $FILE
 
 FILES=(vimrc gemrc pryrc gitignore_global)
 for FILE in $FILES; do
