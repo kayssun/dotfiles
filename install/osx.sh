@@ -2,6 +2,9 @@
 
 PACKAGES=(tree imagemagick gnuplot nmap mtr git ack tmux unrar ruby fish)
 
+# Configure Safari to not only search beginnings of words
+defaults write /Library/Preferences/com.apple.Safari FindOnPageMatchesWordStartsOnly -bool FALSE
+
 autoload -U colors && colors
 
 WARNING="$fg[blue]*$reset_color"
