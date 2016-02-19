@@ -120,3 +120,4 @@ function fish_prompt
   echo -n "$prompt_finisher_color$prompt_finisher "
 end
 
+test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
