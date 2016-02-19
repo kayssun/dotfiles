@@ -19,6 +19,9 @@ end
 # Prefer vim
 set -x EDITOR "vim"
 
+# Prefer fish on other hosts (they need to be configured to respect this)
+set -x PREFERRED_SHELL "fish"
+
 # Git shortcuts
 # update local repo even with local changes
 alias ks-update "git stash; and git pull --rebase; and git push; and git stash apply"
