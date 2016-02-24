@@ -33,3 +33,8 @@ if has("mouse_sgr")
 else
   set ttymouse=xterm2
 end
+
+if &shell =~# 'fish$'
+  set shell=sh
+endif
+
