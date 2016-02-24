@@ -33,9 +33,22 @@ alias ks-preview "git checkout preview; and git merge master; and git push; and 
 # Default setting: show username and host in prompt
 set -gx prompt_show_host 1
 
+# Allow setting of custom variables for iTerm
+function iterm2_set_user_var
+  printf "\033]1337;SetUserVar=%s=%s\007" "$argv[1]" (printf "%s" "$argv[2]" | base64)
+end
+
 if test -f ~/.config/fish/local.fish
   . ~/.config/fish/local.fish
 end
+
+if test $hostname
+else
+  set hostname (hostname | cut -d . -f 1)
+end
+
+# Configure iTerm variables
+printf "\033]1337;RemoteHost=%s@%s\007\033]1337;CurrentDir=$PWD\007" $USER $hostname
 
 function _is_staging_server
   /sbin/ifconfig | grep "2a01:4f8:191:13b4:" > /dev/null
@@ -73,9 +86,25 @@ if status -i
   _set_promt_host_color
 end
 
+# Mark start of prompt for iTerm
+function iterm2_prompt_start
+  printf "\033]133;A\007"
+end
+
+# Mark end of prompt for iTerm
+function iterm2_prompt_end
+  printf "\033]133;B\007"
+end
+
+# Output the last status to iTerm
+function iterm2_status
+  printf "\033]133;D;%s\007" $argv
+end
+
 # Prompt with: Icon, path, git branch, return status
 function fish_prompt
   set -l last_status $status
+  iterm2_status $last_status
   set -l git_status (_git_branch_name)
   set prompt_dircolor (set_color 050)
 
@@ -99,6 +128,9 @@ function fish_prompt
     set prompt_user "$USER@"
   end
   
+  # Before we output the prompt, mark the spot
+  iterm2_prompt_start
+  
   # Add one space. You might want to add another one to $host_icon, because emoji are pretty wide
   if test $host_icon; echo -n "$host_icon "; end;
 
@@ -118,6 +150,6 @@ function fish_prompt
   end
   
   echo -n "$prompt_finisher_color$prompt_finisher "
+  iterm2_prompt_end
 end
 
-test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
