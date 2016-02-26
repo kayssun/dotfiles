@@ -48,7 +48,25 @@ else
 end
 
 # Configure iTerm variables
-printf "\033]1337;RemoteHost=%s@%s\007\033]1337;CurrentDir=$PWD\007" $USER $hostname
+printf "\033]1337;ShellIntegrationVersion=1\007"
+
+# Tell terminal to create a mark at this location
+function iterm2_preexec
+  printf "\033]133;C;\r\007"
+end
+
+# iTerm2 inform terminal that command starts here
+function iterm2_precmd
+  printf "\033]1337;RemoteHost=%s@%s\007\033]1337;CurrentDir=$PWD\007" $USER $hostname
+end
+
+function -v _ underscore_change
+  if [ x$_ = xfish ]
+    iterm2_precmd
+  else
+    iterm2_preexec
+  end
+end
 
 function _is_staging_server
   /sbin/ifconfig | grep "2a01:4f8:191:13b4:" > /dev/null
