@@ -42,132 +42,134 @@ if test -f ~/.config/fish/local.fish
   . ~/.config/fish/local.fish
 end
 
-if test $hostname
-else
-  set hostname (hostname | cut -d . -f 1)
-end
+if status --is-interactive
 
-# Configure iTerm variables
-printf "\033]1337;ShellIntegrationVersion=1\007"
-
-# Tell terminal to create a mark at this location
-function iterm2_preexec
-  printf "\033]133;C;\r\007"
-end
-
-# iTerm2 inform terminal that command starts here
-function iterm2_precmd
-  printf "\033]1337;RemoteHost=%s@%s\007\033]1337;CurrentDir=$PWD\007" $USER $hostname
-end
-
-function -v _ underscore_change
-  if [ x$_ = xfish ]
-    iterm2_precmd
+  if test $hostname
   else
-    iterm2_preexec
+    set hostname (hostname | cut -d . -f 1)
   end
-end
 
-function _is_staging_server
-  /sbin/ifconfig | grep "2a01:4f8:191:13b4:" > /dev/null
-end
+  # Configure iTerm variables
+  printf "\033]1337;ShellIntegrationVersion=1\007"
 
-function _set_promt_host_color
-  if test $host_color
-  else
-    set -g host_color "red"
+  # Tell terminal to create a mark at this location
+  function iterm2_preexec
+    printf "\033]133;C;\r\007"
+  end
 
-    # use blue on the local macs
-    if test (uname) = "Darwin"
-      set -g host_color "blue"
-    end
+  # iTerm2 inform terminal that command starts here
+  function iterm2_precmd
+    printf "\033]1337;RemoteHost=%s@%s\007\033]1337;CurrentDir=$PWD\007" $USER $hostname
+  end
 
-    # use orange on the staging machines
-    if _is_staging_server
-      set -g host_color "D71"
+  function -v _ underscore_change
+    if [ x$_ = xfish ]
+      iterm2_precmd
+    else
+      iterm2_preexec
     end
   end
 
-  set -g prompt_host_color (set_color $host_color)
-end
-
-function _git_branch_name
-  echo (command git symbolic-ref HEAD ^/dev/null | sed -e 's|^refs/heads/||')
-end
-
-function _short_pwd
-  echo $PWD | sed -e "s|^$HOME|~|"
-end
-
-if status -i
-  # we're interactive
-  _set_promt_host_color
-end
-
-# Mark start of prompt for iTerm
-function iterm2_prompt_start
-  printf "\033]133;A\007"
-end
-
-# Mark end of prompt for iTerm
-function iterm2_prompt_end
-  printf "\033]133;B\007"
-end
-
-# Output the last status to iTerm
-function iterm2_status
-  printf "\033]133;D;%s\007" $argv
-end
-
-# Prompt with: Icon, path, git branch, return status
-function fish_prompt
-  set -l last_status $status
-  iterm2_status $last_status
-  set -l git_status (_git_branch_name)
-  set prompt_dircolor (set_color 050)
-
-  set_color normal
-
-  if [ "$REPORTTIME" != "0" -a "$CMD_DURATION" -gt "$REPORTTIME" ]
-    set_color blue
-    echo ""
-    echo "Last command took" (math "$CMD_DURATION/1000") "seconds."
-    set_color normal    
+  function _is_staging_server
+    /sbin/ifconfig | grep "2a01:4f8:191:13b4:" > /dev/null
   end
 
-  switch $USER
-  case root
-    set prompt_finisher_color (set_color red)
-    set prompt_finisher ' #'
-    set prompt_user ''
-  case '*'
-    set prompt_finisher_color (set_color green)
-    set prompt_finisher ' >'
-    set prompt_user "$USER@"
-  end
-  
-  # Before we output the prompt, mark the spot
-  iterm2_prompt_start
-  
-  # Add one space. You might want to add another one to $host_icon, because emoji are pretty wide
-  if test $host_icon; echo -n "$host_icon "; end;
+  function _set_promt_host_color
+    if test $host_color
+    else
+      set -g host_color "red"
 
-  if test $prompt_show_host
-    echo -n "$prompt_host_color$prompt_user"(hostname -s)" "
+      # use blue on the local macs
+      if test (uname) = "Darwin"
+        set -g host_color "blue"
+      end
+
+      # use orange on the staging machines
+      if _is_staging_server
+        set -g host_color "D71"
+      end
+    end
+
+    set -g prompt_host_color (set_color $host_color)
   end
 
-  echo -n "$prompt_dircolor"(_short_pwd)
-
-  if test $git_status != ""
-    echo -n " ($git_status)"
+  function _git_branch_name
+    echo (command git symbolic-ref HEAD ^/dev/null | sed -e 's|^refs/heads/||')
   end
 
-  if test $last_status != 0
-    set_color red
-    echo -n " [$last_status]"
+  function _short_pwd
+    echo $PWD | sed -e "s|^$HOME|~|"
   end
-  
-  echo -n "$prompt_finisher_color$prompt_finisher "
-  iterm2_prompt_end
+
+  if status -i
+    # we're interactive
+    _set_promt_host_color
+  end
+
+  # Mark start of prompt for iTerm
+  function iterm2_prompt_start
+    printf "\033]133;A\007"
+  end
+
+  # Mark end of prompt for iTerm
+  function iterm2_prompt_end
+    printf "\033]133;B\007"
+  end
+
+  # Output the last status to iTerm
+  function iterm2_status
+    printf "\033]133;D;%s\007" $argv
+  end
+
+  # Prompt with: Icon, path, git branch, return status
+  function fish_prompt
+    set -l last_status $status
+    iterm2_status $last_status
+    set -l git_status (_git_branch_name)
+    set prompt_dircolor (set_color 050)
+
+    set_color normal
+
+    if [ "$REPORTTIME" != "0" -a "$CMD_DURATION" -gt "$REPORTTIME" ]
+      set_color blue
+      echo ""
+      echo "Last command took" (math "$CMD_DURATION/1000") "seconds."
+      set_color normal    
+    end
+
+    switch $USER
+    case root
+      set prompt_finisher_color (set_color red)
+      set prompt_finisher ' #'
+      set prompt_user ''
+    case '*'
+      set prompt_finisher_color (set_color green)
+      set prompt_finisher ' >'
+      set prompt_user "$USER@"
+    end
+    
+    # Before we output the prompt, mark the spot
+    iterm2_prompt_start
+    
+    # Add one space. You might want to add another one to $host_icon, because emoji are pretty wide
+    if test $host_icon; echo -n "$host_icon "; end;
+
+    if test $prompt_show_host
+      echo -n "$prompt_host_color$prompt_user"(hostname -s)" "
+    end
+
+    echo -n "$prompt_dircolor"(_short_pwd)
+
+    if test $git_status != ""
+      echo -n " ($git_status)"
+    end
+
+    if test $last_status != 0
+      set_color red
+      echo -n " [$last_status]"
+    end
+    
+    echo -n "$prompt_finisher_color$prompt_finisher "
+    iterm2_prompt_end
+  end
 end
-
