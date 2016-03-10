@@ -155,7 +155,7 @@ if status --is-interactive
     if test $host_icon; echo -n "$host_icon "; end;
 
     if test $prompt_show_host
-      echo -n "$prompt_host_color$prompt_user"(hostname -s)" "
+      echo -n "$prompt_host_color$prompt_user$hostname "
     end
 
     echo -n "$prompt_dircolor"(_short_pwd)
