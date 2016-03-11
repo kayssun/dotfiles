@@ -27,7 +27,9 @@ set expandtab
 
 let g:ruby_path = "/usr/local/bin"
 
-set mouse=a
+" Use mouse integration only in insert mode
+" this allows easy select & copy & paste in normal mode
+set mouse=i
 if has("mouse_sgr")
   set ttymouse=sgr
 else
