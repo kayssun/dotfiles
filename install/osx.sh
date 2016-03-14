@@ -2,6 +2,9 @@
 
 PACKAGES=(tree imagemagick gnuplot nmap mtr git ack tmux unrar ruby fish)
 
+SCRIPT_PATH=$0:A
+SCRIPT_DIR=`dirname $SCRIPT_PATH`
+
 # Configure Safari to not only search beginnings of words
 defaults write /Library/Preferences/com.apple.Safari FindOnPageMatchesWordStartsOnly -bool FALSE
 
@@ -27,7 +30,6 @@ else
 	else
 		ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 	fi
-
 fi
 
 # Install base packages
@@ -46,28 +48,6 @@ else
 fi
 
 # Install symlinks
-cd $HOME
-
-FILE="$HOME/.config/fish/config.fish"
-if [[ -f $FILE ]]; then
-	echo "${WARNING} Moving old config.fish to config.fish-bkp"
-	mv $FILE ${FILE}-bkp
-fi
-if [[ -h $FILE ]]; then
-	rm $FILE
-fi
-ln -s $HOME/.dotfiles/fish/config.fish $FILE
-
-FILES=(vimrc gemrc pryrc gitignore_global)
-for FILE in $FILES; do
-	if [[ -f $HOME/.$FILE ]]; then
-		echo "${WARNING} Moving old .$FILE to .${FILE}-bkp"
-		mv "$HOME/.$FILE" "$HOME/.${FILE}-bkp"
-	fi
-	if [[ -h $HOME/.$FILE ]]; then
-		rm $HOME/.$FILE
-	fi
-	ln -s .dotfiles/$FILE .$FILE
-done
+$SCRIPT_DIR/symlinks.sh
 
 echo "${STATUS} Done."
