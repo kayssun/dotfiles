@@ -21,6 +21,8 @@ done
 
 # And now for the fish
 FILE="$HOME/.config/fish/config.fish"
+DIR=`dirname $FILE`
+mkdir -p $DIR
 
 # Delete existing link
 if [[ -h $FILE ]]; then
