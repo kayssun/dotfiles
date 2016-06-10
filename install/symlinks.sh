@@ -3,7 +3,7 @@
 cd $HOME
 
 FILES=(vimrc gemrc pryrc gitignore_global rspec)
-for FILE in $FILES; do
+for FILE in ${FILES[@]}; do
   # Delete existing symlink
 	if [ -h $HOME/.$FILE ]; then
 		rm $HOME/.$FILE
