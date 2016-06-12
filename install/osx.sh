@@ -1,5 +1,8 @@
 #!/bin/zsh
 
+# Download https://raw.githubusercontent.com/dag/vim-fish/master/syntax/fish.vim
+# into .vim/plugins
+
 PACKAGES=(tree imagemagick gnuplot nmap mtr git ack tmux unrar ruby fish)
 
 SCRIPT_PATH=$0:A
