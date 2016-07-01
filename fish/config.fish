@@ -68,6 +68,9 @@ if status --is-interactive
 
     set_color normal
 
+    # Ensure the variable is always set (otherwise it breaks on old fish versions)
+    test -n "$CMD_DURATION"; or set CMD_DURATION 0
+
     if [ "$REPORTTIME" != "0" -a "$CMD_DURATION" -gt "$REPORTTIME" ]
       set_color blue
       echo ""
