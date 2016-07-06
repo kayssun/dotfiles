@@ -66,3 +66,7 @@ end
 function iterm2_set_user_var
   printf "\033]1337;SetUserVar=%s=%s\007" "$argv[1]" (printf "%s" "$argv[2]" | base64)
 end
+
+function display_notification
+  osascript -e "display notification \"$argv[1]\" with title \"Command finished after $argv[2] seconds\""
+end

@@ -11,6 +11,11 @@ if [ $version_major -ge 2 -a $version_minor -ge 2 ]
   set REPORTTIME 10000
 end
 
+set NOTIFICATION_TIME 0 # ENsure it's set
+if which osascript > /dev/null
+  set NOTIFICATION_TIME 300000 # default to 5 Minutes on OSX
+end
+
 function fish_greeting
   echo "$USER on "(hostname|cut -d . -f 1)
   date
@@ -75,7 +80,11 @@ if status --is-interactive
       set_color blue
       echo ""
       echo "Last command took" (math "$CMD_DURATION/1000") "seconds."
-      set_color normal    
+      set_color normal
+    end
+
+    if [ "$NOTIFICATION_TIME" != "0" -a "$CMD_DURATION" -gt "$NOTIFICATION_TIME" ]
+      display_notification $history[1] (math "$CMD_DURATION/1000")
     end
 
     switch $USER
