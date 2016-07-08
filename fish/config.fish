@@ -15,6 +15,8 @@ set NOTIFICATION_TIME 0 # ENsure it's set
 if which osascript > /dev/null
   set NOTIFICATION_TIME 300000 # default to 5 Minutes on OSX
 end
+# Exclude interactive programs, you probably know when you quit them
+set NOTIFICATION_EXCLUDES ssh fish bash vim vi tmux nano less irb pry
 
 function fish_greeting
   echo "$USER on "(hostname|cut -d . -f 1)
@@ -84,7 +86,11 @@ if status --is-interactive
     end
 
     if [ "$NOTIFICATION_TIME" != "0" -a "$CMD_DURATION" -gt "$NOTIFICATION_TIME" ]
-      display_notification $history[1] (math "$CMD_DURATION/1000")
+      set last_program (echo $history[1] | awk '{print $1}')
+      # Find program name in list (add spaces at beginning/end to not match parts of a command)
+      if echo " $NOTIFICATION_EXCLUDES " | grep -v -q " $last_program "
+        display_notification $history[1] (math "$CMD_DURATION/1000")
+      end
     end
 
     switch $USER
