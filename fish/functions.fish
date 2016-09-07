@@ -1,3 +1,9 @@
+# Fire an event when directory changes
+function cd --description "Change working directory"
+  builtin cd $argv
+  emit cwd
+end
+
 function _is_staging_server
   /sbin/ifconfig | grep "2a01:4f8:191:13b4:" > /dev/null
 end
@@ -8,6 +14,24 @@ end
 
 function _short_pwd
   echo $PWD | sed -e "s|^$HOME|~|"
+end
+
+function _update_environment --on-event cwd
+  if [ ! -f .fish_environment ]
+    return
+  end
+
+  # Read environment file and set variables
+  for line in (cat .fish_environment)
+    if string match -r  '^([a-zA-Z0-9_]+)\s([^ ]+)$' "$line" > /dev/null
+      set set_command (string replace -r '^([a-zA-Z0-9_]+)\s([^ ]+)$' 'set -gx $1 $2' "$line")
+      set info_command (string replace -r '^([a-zA-Z0-9_]+)\s([^ ]+)$' 'echo -n "Setting "; set_color D71; echo -n $1; set_color normal; echo -n " to "; set_color D71; echo $2; set_color normal' "$line")
+      eval $set_command
+      eval $info_command
+    else
+      echo "Found unparseable line in .fish_environment."
+    end
+  end
 end
 
 # Mark start of prompt for iTerm

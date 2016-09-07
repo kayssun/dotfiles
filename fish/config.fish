@@ -116,8 +116,6 @@ if status --is-interactive
 
     echo -n "$prompt_dircolor"(_short_pwd)
 
-    
-
     if test $last_status != 0
       set_color red
       echo -n " [$last_status]"
