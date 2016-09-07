@@ -42,6 +42,7 @@ alias ks-preview "git checkout preview; and git merge master; and git push; and 
 
 # Default setting: show username and host in prompt
 set -gx prompt_show_host 1
+set show_flow_context 1
 
 if test -f ~/.dotfiles/fish/functions.fish
   . ~/.dotfiles/fish/functions.fish
@@ -70,7 +71,6 @@ if status --is-interactive
   function fish_prompt
     set -l last_status $status
     iterm2_status $last_status
-    set -l git_status (_git_branch_name)
     set prompt_dircolor (set_color 050)
 
     set_color normal
@@ -116,9 +116,7 @@ if status --is-interactive
 
     echo -n "$prompt_dircolor"(_short_pwd)
 
-    if test $git_status != ""
-      echo -n " ($git_status)"
-    end
+    
 
     if test $last_status != 0
       set_color red
@@ -128,4 +126,20 @@ if status --is-interactive
     echo -n "$prompt_finisher_color$prompt_finisher "
     iterm2_prompt_end
   end
+
+  function fish_right_prompt -d "Write out the right prompt"
+    set -l git_status (_git_branch_name)
+    set_color D71
+
+    if test $git_status != ""
+      echo -n " ($git_status)"
+    end
+
+    # Output FLOW_CONTEXT for Neos projects
+    if [ "$show_flow_context" = "1" -a -f "./flow" ]
+      echo -n " [$FLOW_CONTEXT]"
+    end
+    set_color normal
+  end
+
 end
