@@ -11,6 +11,7 @@ function _short_pwd
 end
 
 function _update_environment --on-variable PWD --description "Update the environment according to .fish_environment"
+  status --is-command-substitution; and return
   if [ ! -f .fish_environment ]
     return
   end
