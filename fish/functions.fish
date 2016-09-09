@@ -1,9 +1,3 @@
-# Fire an event when directory changes
-function cd --description "Change working directory"
-  builtin cd $argv
-  emit cwd
-end
-
 function _is_staging_server
   /sbin/ifconfig | grep "2a01:4f8:191:13b4:" > /dev/null
 end
@@ -16,7 +10,7 @@ function _short_pwd
   echo $PWD | sed -e "s|^$HOME|~|"
 end
 
-function _update_environment --on-event cwd
+function _update_environment --on-variable PWD --description "Update the environment according to .fish_environment"
   if [ ! -f .fish_environment ]
     return
   end
