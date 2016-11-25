@@ -40,3 +40,6 @@ if &shell =~# 'fish$'
   set shell=sh
 endif
 
+" Map Shift-Tab to Tab (since normal Tab is mapped to spaces
+:inoremap <S-Tab> <C-V><Tab>
+
