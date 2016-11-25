@@ -17,14 +17,22 @@ function _update_environment --on-variable PWD --description "Update the environ
   end
 
   # Read environment file and set variables
-  for line in (cat .fish_environment)
-    if string match -r  '^([a-zA-Z0-9_]+)\s([^ ]+)$' "$line" > /dev/null
-      set set_command (string replace -r '^([a-zA-Z0-9_]+)\s([^ ]+)$' 'set -gx $1 $2' "$line")
-      set info_command (string replace -r '^([a-zA-Z0-9_]+)\s([^ ]+)$' 'echo -n "Setting "; set_color D71; echo -n $1; set_color normal; echo -n " to "; set_color D71; echo $2; set_color normal' "$line")
+  # This version requirement will break at version 3.0
+  if [ $version_major -ge 2 -a $version_minor -ge 3 ]
+    for line in (cat .fish_environment)
+      if string match -r  '^([a-zA-Z0-9_]+)\s([^ ]+)$' "$line" > /dev/null
+        set set_command (string replace -r '^([a-zA-Z0-9_]+)\s([^ ]+)$' 'set -gx $1 $2' "$line")
+        set info_command (string replace -r '^([a-zA-Z0-9_]+)\s([^ ]+)$' 'echo -n "Setting "; set_color D71; echo -n $1; set_color normal; echo -n " to "; set_color D71; echo $2; set_color normal' "$line")
+        eval $set_command
+        eval $info_command
+      else
+        echo "Found unparseable line in .fish_environment."
+      end
+    end
+  else
+    if [ -f (which ruby) ]
+      set set_command (ruby -n -e '/^([a-zA-Z0-9_]+)\s([^ ]+)$/.match($_.strip) { |data| puts "set -x #{data[1]} \"#{data[2]}\";"; puts "echo -n \"Setting \"; set_color D71; echo -n #{data[1]}; set_color normal; echo -n \" to \"; set_color D71; echo #{data[2]}; set_color normal;" }' < .fish_environment)
       eval $set_command
-      eval $info_command
-    else
-      echo "Found unparseable line in .fish_environment."
     end
   end
 end
