@@ -3,6 +3,11 @@ set PATH ~/.bin /usr/local/sbin $PATH
 # Ensure the variable is set when fish starts
 set CMD_DURATION 1
 set REPORTTIME 0
+if [ $TERM_PROGRAM = "iTerm.app" ]
+  set ITERM2_INTEGRATION true
+else
+  set ITERM2_INTEGRATION false
+end
 
 # Set REPORTTIME to 10s on fish versions greater than 2.2.0
 set version_major (echo $version | cut -d "." -f 1)
@@ -60,7 +65,7 @@ if status --is-interactive
   end
 
   # Configure iTerm variables
-  printf "\033]1337;ShellIntegrationVersion=1\007"
+  if eval $ITERM2_INTEGRATION; printf "\033]1337;ShellIntegrationVersion=1\007"; end
 
   if status -i
     # we're interactive
@@ -70,7 +75,7 @@ if status --is-interactive
   # Prompt with: Icon, path, git branch, return status
   function fish_prompt
     set -l last_status $status
-    iterm2_status $last_status
+    if eval $ITERM2_INTEGRATION; iterm2_status $last_status; end
     set prompt_dircolor (set_color 050)
 
     set_color normal
@@ -105,7 +110,7 @@ if status --is-interactive
     end
     
     # Before we output the prompt, mark the spot
-    iterm2_prompt_start
+    if eval $ITERM2_INTEGRATION; iterm2_prompt_start; end
     
     # Add one space. You might want to add another one to $host_icon, because emoji are pretty wide
     if test $host_icon; echo -n "$host_icon "; end;
@@ -122,7 +127,7 @@ if status --is-interactive
     end
     
     echo -n "$prompt_finisher_color$prompt_finisher "
-    iterm2_prompt_end
+    if eval $ITERM2_INTEGRATION; iterm2_prompt_end; end
   end
 
   function fish_right_prompt -d "Write out the right prompt"
