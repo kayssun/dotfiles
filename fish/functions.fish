@@ -82,10 +82,12 @@ function iterm2_precmd
 end
 
 function -v _ underscore_change
-  if [ x$_ = xfish -a $ITERM2_INTEGRATION = "true" ]
-    iterm2_precmd
-  else
-    iterm2_preexec
+  if [ $ITERM2_INTEGRATION = "true" ]
+    if [ x$_ = xfish ]
+      iterm2_precmd
+    else
+      iterm2_preexec
+    end
   end
 end
 
