@@ -81,7 +81,7 @@ function iterm2_precmd
   printf "\033]1337;RemoteHost=%s@%s\007\033]1337;CurrentDir=$PWD\007" $USER $hostname
 end
 
-function -v _ underscore_change
+function underscore_change -v _
   if [ $ITERM2_INTEGRATION = "true" ]
     if [ x$_ = xfish ]
       iterm2_precmd
