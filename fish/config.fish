@@ -3,7 +3,7 @@ set PATH ~/.bin /usr/local/sbin $PATH
 # Ensure the variable is set when fish starts
 set CMD_DURATION 1
 set REPORTTIME 0
-if [ $TERM_PROGRAM = "iTerm.app" ]
+if [ "$TERM_PROGRAM" = "iTerm.app" ]
   set ITERM2_INTEGRATION true
 else
   set ITERM2_INTEGRATION false
