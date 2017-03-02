@@ -1,7 +1,3 @@
-function _is_staging_server
-  /sbin/ifconfig | grep "2a01:4f8:191:13b4:" > /dev/null
-end
-
 function _git_branch_name
   echo (command git symbolic-ref HEAD ^/dev/null | sed -e 's|^refs/heads/||')
 end
@@ -60,11 +56,6 @@ function _set_promt_host_color
     # use blue on the local macs
     if test (uname) = "Darwin"
       set -g host_color "blue"
-    end
-
-    # use orange on the staging machines
-    if _is_staging_server
-      set -g host_color "D71"
     end
   end
 
