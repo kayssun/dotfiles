@@ -23,6 +23,7 @@ done
 FILE="$HOME/.config/fish/config.fish"
 DIR=`dirname $FILE`
 mkdir -p $DIR
+mkdir -p "$HOME/.bin"
 
 # Delete existing link
 if [[ -h $FILE ]]; then
