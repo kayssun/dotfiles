@@ -2,7 +2,7 @@
 
 cd $HOME
 
-FILES=(vimrc gemrc pryrc gitignore_global rspec)
+FILES=(vimrc gemrc pryrc gitignore_global rspec rubocop.yml)
 for FILE in ${FILES[@]}; do
   # Delete existing symlink
 	if [ -h $HOME/.$FILE ]; then

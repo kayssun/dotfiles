@@ -1,0 +1,5 @@
+AllCops:
+  Include:
+    - '**/Fulmarfile'
+Metrics/LineLength:
+  Max: 120
