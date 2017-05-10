@@ -41,7 +41,7 @@ alias bash "env PREFERRED_SHELL=bash bash"
 # update local repo even with local changes
 alias ks-update "git stash save 'ks-update'; and git pull --rebase; and git push; and git stash pop"
 # update release branch
-alias ks-release "git checkout release; and git merge master; and git push; and git checkout master"
+alias ks-live "git checkout live; and git merge master; and git push; and git checkout master"
 # update preview branch
 alias ks-preview "git checkout preview; and git merge master; and git push; and git checkout master"
 
