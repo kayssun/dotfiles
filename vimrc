@@ -40,3 +40,5 @@ endif
 " Map Shift-Tab to Tab (since normal Tab is mapped to spaces
 :inoremap <S-Tab> <C-V><Tab>
 
+" sudo write
+ca w!! w !sudo tee >/dev/null "%"
