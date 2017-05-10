@@ -11,6 +11,9 @@ SCRIPT_DIR=`dirname $SCRIPT_PATH`
 # Configure Safari to not only search beginnings of words
 defaults write /Library/Preferences/com.apple.Safari FindOnPageMatchesWordStartsOnly -bool FALSE
 
+# Add a nice log
+git config --global alias.fl "log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'"
+
 autoload -U colors && colors
 
 WARNING="$fg[blue]*$reset_color"
