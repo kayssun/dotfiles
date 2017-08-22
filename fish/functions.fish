@@ -27,7 +27,7 @@ function _update_environment --on-variable PWD --description "Update the environ
     end
   else
     if [ -f (which ruby) ]
-      set set_command (ruby -n -e '/^([a-zA-Z0-9_]+)\s([^ ]+)$/.match($_.strip) { |data| puts "set -x #{data[1]} \"#{data[2]}\";"; puts "echo -n \"Setting \"; set_color D71; echo -n #{data[1]}; set_color normal; echo -n \" to \"; set_color D71; echo #{data[2]}; set_color normal;" }' < .fish_environment)
+      set set_command (ruby -n -e '/^([a-zA-Z0-9_]+)\s([^ ]+)$/.match($_.strip) { |data| puts "set -gx #{data[1]} \"#{data[2]}\";"; puts "echo -n \"Setting \"; set_color D71; echo -n #{data[1]}; set_color normal; echo -n \" to \"; set_color D71; echo #{data[2]}; set_color normal;" }' < .fish_environment)
       eval $set_command
     end
   end
