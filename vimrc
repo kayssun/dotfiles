@@ -12,6 +12,7 @@ set ruler
 
 " Makes search act like search in modern browsers
 set incsearch
+set hlsearch
 
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
