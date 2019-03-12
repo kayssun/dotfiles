@@ -9,6 +9,9 @@ else
   set ITERM2_INTEGRATION false
 end
 
+# Disable custom prompt for python virtual environments (breaks custom prompt)
+set VIRTUAL_ENV_DISABLE_PROMPT 1
+
 # Set REPORTTIME to 10s on fish versions greater than 2.2.0
 set version_major (echo $version | cut -d "." -f 1)
 set version_minor (echo $version | cut -d "." -f 1)
@@ -48,6 +51,7 @@ alias ks-preview "git checkout preview; and git merge master; and git push; and 
 # Default setting: show username and host in prompt
 set -gx prompt_show_host 1
 set show_flow_context 1
+set fish_emoji_width 2
 
 if test -f ~/.dotfiles/fish/functions.fish
   . ~/.dotfiles/fish/functions.fish
@@ -108,24 +112,28 @@ if status --is-interactive
       set prompt_finisher ' >'
       set prompt_user "$USER@"
     end
-    
+
     # Before we output the prompt, mark the spot
     if eval $ITERM2_INTEGRATION; iterm2_prompt_start; end
-    
+
     # Add one space. You might want to add another one to $host_icon, because emoji are pretty wide
     if test $host_icon; echo -n "$host_icon "; end;
 
     if test $prompt_show_host
-      echo -n "$prompt_host_color$prompt_user$hostname "
+      echo -n "$prompt_host_color$prompt_user$prompt_hostname "
     end
 
     echo -n "$prompt_dircolor"(_short_pwd)
+
+    if test -n "$VIRTUAL_ENV"
+        echo -n " 🐍"
+    end
 
     if test $last_status != 0
       set_color red
       echo -n " [$last_status]"
     end
-    
+
     echo -n "$prompt_finisher_color$prompt_finisher "
     if eval $ITERM2_INTEGRATION; iterm2_prompt_end; end
   end
