@@ -59,9 +59,9 @@ end
 
 if status --is-interactive
 
-  if test $hostname
+  if test $prompt_hostname
   else
-    set hostname (hostname | cut -d . -f 1)
+    set prompt_hostname (hostname | cut -d . -f 1)
   end
 
   # Configure iTerm variables
