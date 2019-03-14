@@ -1,0 +1,20 @@
+{
+    "telemetry.enableTelemetry": false,
+    "files.autoSave": "onFocusChange",
+    "editor.fontSize": 14,
+    "editor.rulers": [120],
+    "python.pythonPath": "/usr/local/bin/python3",
+    "python.linting.pep8Enabled": true,
+    "python.linting.pep8Args": ["--ignore=E501"],
+    "files.trimTrailingWhitespace": true,
+    "[markdown]": {
+        "files.trimTrailingWhitespace": false
+    },
+    "workbench.iconTheme": "vscode-icons",
+    "window.zoomLevel": 1,
+    "vsicons.dontShowNewVersionMessage": true,
+    "editor.detectIndentation": false,
+    "editor.copyWithSyntaxHighlighting": false,
+    "python.linting.pep8Path": "pycodestyle",
+    "workbench.statusBar.feedback.visible": false,
+}
