@@ -36,14 +36,6 @@ set -x PREFERRED_SHELL "fish"
 # This ensures bash can still be used
 alias bash "env PREFERRED_SHELL=bash bash"
 
-# Git shortcuts
-# update local repo even with local changes
-alias ks-update "git stash save 'ks-update'; and git pull --rebase; and git push; and git stash pop"
-# update release branch
-alias ks-live "git checkout live; and git merge master; and git push; and git checkout master"
-# update preview branch
-alias ks-preview "git checkout preview; and git merge master; and git push; and git checkout master"
-
 # Default setting: show username and host in prompt
 set -gx prompt_show_host 1
 set show_flow_context 1
