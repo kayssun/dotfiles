@@ -3,11 +3,7 @@ set PATH ~/.bin /usr/local/sbin $PATH
 # Ensure the variable is set when fish starts
 set CMD_DURATION 1
 set REPORTTIME 0
-if [ "$TERM_PROGRAM" = "iTerm.app" ]
-  set ITERM2_INTEGRATION true
-else
-  set ITERM2_INTEGRATION false
-end
+
 
 # Disable custom prompt for python virtual environments (breaks custom prompt)
 set VIRTUAL_ENV_DISABLE_PROMPT 1
@@ -54,11 +50,15 @@ set show_flow_context 1
 set fish_emoji_width 2
 
 if test -f ~/.dotfiles/fish/functions.fish
-  . ~/.dotfiles/fish/functions.fish
+  source ~/.dotfiles/fish/functions.fish
+end
+
+if test -f ~/.dotfiles/fish/macos.fish
+  source ~/.dotfiles/fish/macos.fish
 end
 
 if test -f ~/.config/fish/local.fish
-  . ~/.config/fish/local.fish
+  source ~/.config/fish/local.fish
 end
 
 if status --is-interactive
