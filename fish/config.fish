@@ -4,7 +4,6 @@ set PATH ~/.bin /usr/local/sbin $PATH
 set CMD_DURATION 1
 set REPORTTIME 0
 
-
 # Disable custom prompt for python virtual environments (breaks custom prompt)
 set VIRTUAL_ENV_DISABLE_PROMPT 1
 
@@ -15,7 +14,7 @@ if [ $version_major -ge 2 -a $version_minor -ge 2 ]
   set REPORTTIME 10000
 end
 
-set NOTIFICATION_TIME 0 # ENsure it's set
+set NOTIFICATION_TIME 0 # Ensure it's set
 if which osascript > /dev/null
   set NOTIFICATION_TIME 300000 # default to 5 Minutes on OSX
 end
