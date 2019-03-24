@@ -45,7 +45,7 @@ if test -f ~/.dotfiles/fish/functions.fish
   source ~/.dotfiles/fish/functions.fish
 end
 
-if test -f ~/.dotfiles/fish/macos.fish
+if test -f ~/.dotfiles/fish/macos.fish -a (uname) = "Darwin"
   source ~/.dotfiles/fish/macos.fish
 end
 
