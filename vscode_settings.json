@@ -5,16 +5,21 @@
     "editor.rulers": [120],
     "python.pythonPath": "/usr/local/bin/python3",
     "python.linting.pep8Enabled": true,
-    "python.linting.pep8Args": ["--ignore=E501"],
+    "python.linting.pep8Args": [
+        "--ignore=E501",
+        "--ignore=W503",
+        "--max-line-length 119"
+    ],
     "files.trimTrailingWhitespace": true,
     "[markdown]": {
         "files.trimTrailingWhitespace": false
     },
-    "workbench.iconTheme": "vscode-icons",
     "window.zoomLevel": 1,
-    "vsicons.dontShowNewVersionMessage": true,
-    "editor.detectIndentation": false,
     "editor.copyWithSyntaxHighlighting": false,
     "python.linting.pep8Path": "pycodestyle",
     "workbench.statusBar.feedback.visible": false,
+    "editor.formatOnSave": true,
+    "workbench.iconTheme": "vscode-icons",
+    "html.format.wrapLineLength": 80,
+    "editor.wordWrapColumn": 120
 }
