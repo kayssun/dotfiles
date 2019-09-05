@@ -59,9 +59,6 @@ if status --is-interactive
     set prompt_hostname (hostname | cut -d . -f 1)
   end
 
-  # Configure iTerm variables
-  if eval $ITERM2_INTEGRATION; printf "\033]1337;ShellIntegrationVersion=1\007"; end
-
   if status -i
     # we're interactive
     _set_promt_host_color
@@ -104,9 +101,6 @@ if status --is-interactive
       set prompt_user "$USER@"
     end
 
-    # Before we output the prompt, mark the spot
-    if eval $ITERM2_INTEGRATION; iterm2_prompt_start; end
-
     # Add one space. You might want to add another one to $host_icon, because emoji are pretty wide
     if test $host_icon; echo -n "$host_icon "; end;
 
@@ -126,7 +120,6 @@ if status --is-interactive
     end
 
     echo -n "$prompt_finisher_color$prompt_finisher "
-    if eval $ITERM2_INTEGRATION; iterm2_prompt_end; end
   end
 
   function fish_right_prompt -d "Write out the right prompt"

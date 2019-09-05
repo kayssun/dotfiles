@@ -33,21 +33,6 @@ function _update_environment --on-variable PWD --description "Update the environ
   end
 end
 
-# Mark start of prompt for iTerm
-function iterm2_prompt_start
-  printf "\033]133;A\007"
-end
-
-# Mark end of prompt for iTerm
-function iterm2_prompt_end
-  printf "\033]133;B\007"
-end
-
-# Output the last status to iTerm
-function iterm2_status
-  printf "\033]133;D;%s\007" $argv
-end
-
 function _set_promt_host_color
   if test $host_color
   else
@@ -80,11 +65,6 @@ function underscore_change -v _
       iterm2_preexec
     end
   end
-end
-
-  # Allow setting of custom variables for iTerm
-function iterm2_set_user_var
-  printf "\033]1337;SetUserVar=%s=%s\007" "$argv[1]" (printf "%s" "$argv[2]" | base64)
 end
 
 function display_notification
