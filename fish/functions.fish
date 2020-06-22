@@ -68,5 +68,7 @@ function underscore_change -v _
 end
 
 function display_notification
-  osascript -e "display notification \"$argv[1]\" with title \"Command finished after $argv[2] seconds\""
+  # Remove double quotes, notification does not need to be 100% accurate for me
+  set command_string (string replace -a "\"" "'" $argv[1])
+  osascript -e "display notification \"$command_string\" with title \"Command finished after $argv[2] seconds\""
 end
