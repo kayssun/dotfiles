@@ -2,11 +2,11 @@
     "telemetry.enableTelemetry": false,
     "files.autoSave": "onFocusChange",
     "editor.fontSize": 14,
-    "editor.rulers": [120],
-    "python.pythonPath": "/usr/local/opt/python@3.8/bin/python3",
+    "editor.rulers": [
+        120
+    ],
     "python.linting.pycodestyleEnabled": true,
     "python.linting.pycodestyleArgs": [
-        "--ignore=E501",
         "--ignore=W503",
         "--max-line-length 119"
     ],
@@ -16,7 +16,7 @@
     },
     "window.zoomLevel": 1,
     "editor.copyWithSyntaxHighlighting": false,
-    "python.linting.pycodestylePath": "pycodestyle",
+    "python.linting.pycodestylePath": "/usr/local/bin/pycodestyle",
     "workbench.statusBar.feedback.visible": false,
     "workbench.iconTheme": "vscode-icons",
     "editor.wordWrapColumn": 120,
@@ -27,5 +27,6 @@
     "editor.autoIndent": "brackets",
     "latex-workshop.docker.enabled": true,
     "latex-workshop.docker.image.latex": "latex-dnd",
-    "editor.tabSize": 2
+    "editor.tabSize": 2,
+    "python.linting.flake8Path": "/usr/local/bin/flake8"
 }
