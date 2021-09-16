@@ -14,7 +14,6 @@
     "[markdown]": {
         "files.trimTrailingWhitespace": false
     },
-    "window.zoomLevel": 1,
     "editor.copyWithSyntaxHighlighting": false,
     "python.linting.pycodestylePath": "/usr/local/bin/pycodestyle",
     "workbench.statusBar.feedback.visible": false,
@@ -28,5 +27,16 @@
     "latex-workshop.docker.enabled": true,
     "latex-workshop.docker.image.latex": "latex-dnd",
     "editor.tabSize": 2,
-    "python.linting.flake8Path": "/usr/local/bin/flake8"
+    "python.linting.flake8Path": "/usr/local/bin/flake8",
+    "python.languageServer": "Pylance",
+    "window.zoomLevel": 1,
+    "workbench.editorAssociations": {
+        "*.ipynb": "jupyter-notebook"
+    },
+    "workbench.editor.untitled.hint": "hidden",
+    "notebook.cellToolbarLocation": {
+        "default": "right",
+        "jupyter-notebook": "left"
+    },
+    "go.toolsManagement.autoUpdate": true
 }
