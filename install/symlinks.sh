@@ -38,3 +38,5 @@ fi
 
 # Symlink new
 ln -s $HOME/.dotfiles/fish/config.fish $FILE
+
+echo "Done"
