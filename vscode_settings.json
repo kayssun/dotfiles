@@ -29,7 +29,6 @@
     "editor.tabSize": 2,
     "python.linting.flake8Path": "/usr/local/bin/flake8",
     "python.languageServer": "Pylance",
-    "window.zoomLevel": 1,
     "workbench.editorAssociations": {
         "*.ipynb": "jupyter-notebook"
     },
@@ -38,5 +37,9 @@
         "default": "right",
         "jupyter-notebook": "left"
     },
-    "go.toolsManagement.autoUpdate": true
+    "go.toolsManagement.autoUpdate": true,
+    "window.zoomLevel": 1,
+    "python.pythonPath": "/usr/local/bin/python3",
+    "redhat.telemetry.enabled": false,
+    "ansible.ansible.useFullyQualifiedCollectionNames": false
 }
