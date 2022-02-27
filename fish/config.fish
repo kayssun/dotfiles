@@ -33,9 +33,9 @@ if test -f ~/.dotfiles/fish/functions.fish
   source ~/.dotfiles/fish/functions.fish
 end
 
-if test -f ~/.dotfiles/fish/macos.fish -a (uname) = "Darwin"
-  source ~/.dotfiles/fish/macos.fish
-end
+#if test -f ~/.dotfiles/fish/macos.fish -a (uname) = "Darwin"
+#  source ~/.dotfiles/fish/macos.fish
+#end
 
 if test -f ~/.config/fish/local.fish
   source ~/.config/fish/local.fish
