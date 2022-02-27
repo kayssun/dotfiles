@@ -24,12 +24,6 @@ end
 # Prefer vim
 set -x EDITOR "vim"
 
-# Prefer fish on other hosts (they need to be configured to respect this)
-set -x PREFERRED_SHELL "fish"
-
-# This ensures bash can still be used
-alias bash "env PREFERRED_SHELL=bash bash"
-
 # Default setting: show username and host in prompt
 set -gx prompt_show_host 1
 set show_flow_context 1
