@@ -56,7 +56,7 @@ if status --is-interactive
   # Prompt with: Icon, path, git branch, return status
   function fish_prompt
     set -l last_status $status
-    if eval $ITERM2_INTEGRATION; iterm2_status $last_status; end
+    # if eval $ITERM2_INTEGRATION; iterm2_status $last_status; end
     set prompt_dircolor (set_color 050)
 
     set_color normal
