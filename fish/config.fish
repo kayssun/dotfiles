@@ -112,20 +112,10 @@ if status --is-interactive
   end
 
   function fish_right_prompt -d "Write out the right prompt"
-    set -l git_status (_git_branch_name)
     set_color D71
-
-    if test $git_status != ""
-      echo -n " ($git_status)"
-    end
-
-    # Output FLOW_CONTEXT for Neos projects
-    if [ "$show_flow_context" = "1" -a -f "./flow" ]
-      echo -n " [$FLOW_CONTEXT]"
-    end
+    fish_git_prompt
     set_color normal
   end
-
 end
 
 test -e {$HOME}/.iterm2_shell_integration.fish ; and source {$HOME}/.iterm2_shell_integration.fish
